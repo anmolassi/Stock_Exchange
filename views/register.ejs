@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include ('head_Tag');%>
+    <link rel="stylesheet" href="/css/custom.css">
+<body style="background-color: white;">
+    <div class="levels" style="z-index:5" >
+        <form action="/register" method="POST" id="registerForm">
+          <h1 style="color:rgb(0, 0, 0)">Fill all fields</h1>
+            <div>
+              <input type="text" name="first_name" id="first_name" placeholder="First Name" class="input-field" required/>
+            </div>
+            <div>
+              <input type="text" name="last_name" id="last_name" placeholder="Last Name" class="input-field" required/>
+            </div>
+            <div>
+              <input type="email" name="email" id="email" placeholder="email" class="input-field" required/>
+              <div id="invalid_email">invalid email</div>
+              <div id="valid_email">Seems Good</div>
+              <div id="valid_email_exists">Email already exists</div>
+            </div>
+            <div>
+              <input type="password" name="password" id="password" placeholder="Password" class="input-field" required/>
+            </div>
+            <div>
+              <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" class="input-field" required/>
+            </div>
+            <button type="submit" id="registerMe">Submit</button>
+          </form>
+          <div id="warning">
+            <div class="password-conditions">-password of atleast length 8</div>
+            <div class="password-conditions">-password contains symbols</div>
+            <div class="password-conditions">-password contains numbers</div>
+            <div class="password-conditions">-password contains capital letters</div>
+            <div class="password-conditions">-passwords match</div>
+            <div class="password-conditions">-All fields are Compulsory</div>
+          </div>
+    </div>
+    <!-- <script src="/js/register-enable.js"></script> -->
+    <script src="/js/password.js"></script>
+    <script src="/js/email-checker.js"></script>
+    <script src="/js/name-checker.js"></script>
+</body>
+</html>

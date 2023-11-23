@@ -1,0 +1,115 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><%= locals.title%></title>
+        <link rel="stylesheet" href="/css/custom.css">
+        <script src="/js/cdn.js"></script>
+        <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+        </style>
+    </head>
+<body style="background-color: rgb(206, 206, 206);">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Mock Exchange</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/ordersPending">OrdersPending</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/ordersExecuted">OrdersExecuted</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/portfolio">Portfolio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/addmoney">AddFunds</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    <div id="main-container">
+        <table style="width:100%;text-align: center;">
+            <tr>
+              <th>Share Symbol</th>
+              <th>Share Identifier</th>
+              <th>Quantity</th>
+              <th>Total Brokrage</th>
+              <th>Total Investment</th>
+              <th></th>
+            </tr>
+            <% for (let i=0;i<ordersList.length;i++) {%>
+                <tr>
+                  <td><%=ordersList[i].shareSymbol%></td>
+                  <td><%=ordersList[i].identifier%></td>
+                  <td><%=parseFloat(ordersList[i].totalBrokrage/0.5).toFixed(2)%></td>
+                  <td><%=parseFloat(ordersList[i].totalBrokrage).toFixed(2)%></td>
+                  <td><%=parseFloat(ordersList[i].totalCost).toFixed(2)%></td>
+                  <td><button class="amendBtn" costPerUnit="<%=ordersList[i].costPerUnit%>" idd="<%=ordersList[i]._id%>" symbol="<%=ordersList[i].shareSymbol%>" identifier="<%=ordersList[i].identifier%>" totalBrokrage="<%=ordersList[i].totalBrokrage%>" quantity="<%=ordersList[i].totalBrokrage/0.5%>" totalCost="<%=ordersList[i].totalCost%>">Amend qty</button></td>
+                </tr>
+            <% } %>
+          </table>
+    </div>
+    <div id="quote-box-container">
+        <div id="quote-box">
+            <form action="/amendorder" method="post" id="purchase-form">
+                <h2>Make New Requirement</h2>
+                <div>
+                    <span class="quote-parameters">Symbol: </span>
+                    <input type="text" name="symbol" id="quote-symbol" value="" readonly>
+                </div>
+                <div>
+                    <span class="quote-parameters">Cost/Unit: </span>
+                    <input type="number" name="quote_cost_unit" id="quote-cost-unit" value="" readonly>
+                </div>
+                <div>
+                    <span class="quote-parameters">Total Brokrage: </span>
+                    <input type="number" name="quote_total_brokrage" id="quote-total-brokrage" value="0.5" readonly>
+                </div>
+                <div>
+                    <span class="quote-parameters">Cost Before Fees: </span>
+                    <input type="number" name="quote_total_cost_before" id="quote-total-cost-before" value="" readonly>
+                </div>
+                <div>
+                    <span class="quote-parameters">Total Cost: </span>
+                    <input type="number" name="quote_total_cost" id="quote-total-cost" value="" readonly>
+                </div>
+                <div>
+                    <span class="quote-parameters">Total Quantity: </span>
+                    <input type="number" min="0" name="number_of_stocks" id="number-of-stocks" value="1">
+                </div>
+                <input type="hidden" name="identifier" id="quote-identifier" value="" readonly>
+                <input type="hidden" name="order_id" id="quote-order-id" value="" readonly>
+                <div>
+                    <button type="submit">Confirm</button>
+                    <button id="cancel-btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="/js/index.js"></script>
+    <script src="/js/amend-order.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- <script src="/js/stock-manager-search.js"></script> -->
+</body>
+</html>

@@ -1,0 +1,86 @@
+html{
+    font-size: 62.5%;
+}
+*{
+    box-sizing: border-box;
+}
+:root{
+    --clr-neon: hsl(317 100% 54%);
+    --clr-neon-gr: hsl(125, 100%, 54%);
+    --clr-neon-rd: hsl(0, 100%, 54%);
+    --clr-neon-gy: hsl(0, 0%, 68%);
+    --clr-neon-yl: hsl(65, 100%, 54%);
+    --clr-neon-bl:rgb(75, 202, 244);
+    --clr-bg: hsl(323 21% 16%);
+}
+.levels{
+    display: flex;
+    flex-direction: column;
+    width:100vw;
+    z-index: 5;
+    position: absolute;
+    height: 90vh;
+    top: 1vh;
+    justify-content: center;
+    align-items:center;
+}
+#invalid_email{
+    display: none;
+    color: var(--clr-neon-rd);
+    margin-left: 18px;
+    font-size:14px;
+    font-weight: 600;
+}
+#valid_email{
+    display: none;
+    color: var(--clr-neon-gr);
+    margin-left: 18px;
+    font-size:14px;
+    font-weight: 600;
+}
+#valid_email_exists{
+    display: none;
+    color: var(--clr-neon-rd);
+    margin-left: 18px;
+    font-size:14px;
+    font-weight: 600;
+}
+#warning{
+    position: absolute;
+    top:8rem;
+    right:3rem; 
+    display: none;
+    animation-name: opacityControl;
+    animation-duration: 6s;
+    animation-iteration-count: 1;
+    border-radius: 0.25em;
+    padding: 9px;
+}
+#wrongCreds {
+    color: red;
+    background-color: rgb(252, 132, 132);
+    width: 80vw;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    padding-left: 2rem;
+    font-size: 2.2rem;
+    animation-name: opacityControl;
+    animation-duration: 4.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes opacityControl {
+    from {opacity: 1;}
+    to {opacity: 0;}
+}
+@media screen and (max-width: 998px) {
+    html{
+        font-size: 55%;
+    }
+}
+@media screen and (max-width: 768px) {
+    html{
+        font-size: 45%;
+    }
+}

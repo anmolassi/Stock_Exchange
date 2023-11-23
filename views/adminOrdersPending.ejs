@@ -1,0 +1,111 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><%= locals.title%></title>
+        <link rel="stylesheet" href="/css/custom.css">
+        <script src="/js/cdn.js"></script>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+        </style>
+    </head>
+<body>
+    <header id="layout-header">
+        <div class="mini-logo">
+                <a href='/' id="titlee">
+                    MOCK EXCHANGE   
+                </a>
+        </div>
+        <div>
+            <a href="/admin/ordersPending" class="neon-btn-nav">ordersPending</a>
+        </div>
+        <div class="auth-links">
+            <a href="/admin/locations" class="profile-name"><%=locals.myip%></a>
+            <a href="/admin/logout" class="neon-btn-nav">Sign Out</a>
+        </div>
+    </header>
+    <!-- <h2>Note: Delete buttton deletes the order with just one click, use it carefully.</h2> -->
+    <div id="main-container">
+        <table style="width:100%;text-align: center;">
+            <tr>
+                <th>Shareholder Name</th>
+                <th>Share Symbol</th>
+                <th>Share Identifier</th>
+                <th>Quantity</th>
+                <th>Total Brokrage</th>
+                <th>Total Cost</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <% for (let i=0;i<ordersList.length;i++) {%>
+                <tr>
+                    <td><%=ordersList[i].user.first_name%> <%=ordersList[i].user.last_name%></td>
+                  <td><%=ordersList[i].shareSymbol%></td>
+                  <td><%=ordersList[i].identifier%></td>
+                  <td><%=parseFloat(ordersList[i].totalBrokrage/0.5).toFixed(2)%></td>
+                  <td><%=parseFloat(ordersList[i].totalBrokrage).toFixed(2)%></td>
+                  <td><%=parseFloat(ordersList[i].totalCost).toFixed(2)%></td>
+                  <td><button class="delete-btn"costPerUnit="<%=ordersList[i].costPerUnit%>" idd="<%=ordersList[i]._id%>" >Delete</button></td>
+                  <td><button class="amendBtn" costPerUnit="<%=ordersList[i].costPerUnit%>" idd="<%=ordersList[i]._id%>" symbol="<%=ordersList[i].shareSymbol%>" identifier="<%=ordersList[i].identifier%>" totalBrokrage="<%=ordersList[i].totalBrokrage%>" quantity="<%=ordersList[i].totalBrokrage/0.5%>" totalCost="<%=ordersList[i].totalCost%>">Execute</button></td>
+                </tr>
+            <% } %>
+          </table>
+    </div>
+    <div id="quote-box-container">
+        <div id="quote-box">
+            <form action="/admin/executeorder" method="post" id="purchase-form">
+                <h2>Confirm Execution</h2>
+                <div>
+                    <span class="quote-parameters">Symbol: </span>
+                    <input type="text" name="symbol" id="quote-symbol"  readonly>
+                </div>
+                <div>
+                    <span class="quote-parameters">Cost/Unit: </span>
+                    <input type="number" name="quote_cost_unit" id="quote-cost-unit"  readonly>
+                </div>
+                <div>
+                    <span class="quote-parameters">Brokrage Earned: </span>
+                    <input type="number" name="quote_total_brokrage" id="quote-total-brokrage" value="0.5" readonly>
+                </div>
+                <div>
+                    <span class="quote-parameters">Cost Before Fees: </span>
+                    <input type="number" name="quote_total_cost_before" id="quote-total-cost-before"  readonly>
+                </div>
+                <div>
+                    <span class="quote-parameters">Total Cost: </span>
+                    <input type="number" name="quote_total_cost" id="quote-total-cost"  readonly>
+                </div>
+                <div>
+                    <span class="quote-parameters">Execute Quantity: </span>
+                    <input type="number" min="1" max="" name="number_of_stocks" id="number-of-stocks" value="1">
+                </div>
+                <input type="hidden" name="identifier" id="quote-identifier"  readonly>
+                <input type="hidden" name="order_id" id="quote-order-id"  readonly>
+                <div>
+                    <button type="submit">Confirm</button>
+                    <button id="cancel-btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="quote-box-container-2">
+        <div id="quote-box-2">
+            <form action="/admin/deleteorder" method="post">
+                <h2>Do you want to delete the order?</h2>
+                <input type="hidden" name="order_id" id="quote-order-id-2"  readonly>
+                <div>
+                    <button type="submit">Confirm</button>
+                    <button id="cancel-btn-2">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- <script src="/js/index.js"></script> -->
+    <script src="/js/adminOrderExecution.js"></script>
+    <!-- <script src="/js/stock-manager-search.js"></script> -->
+</body>
+</html>

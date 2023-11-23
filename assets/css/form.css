@@ -1,0 +1,89 @@
+html{
+    font-size: 62.5%;
+}
+.input-field {
+    width: 30rem;
+    font-size: 1.8rem;
+    padding: 1rem;
+    margin: 0.5rem 0rem;
+    background-color: rgb(255, 255, 255);
+    border: black 0.125em solid;
+    border-radius: 0.25em;
+    color: black;
+}
+#login_form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: auto;
+}
+#registerForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#registerMe{
+    margin-top: 1rem;
+}
+#login:hover, #registerMe:hover, #reset:hover{
+    background: var(--clr-neon);
+}
+.password-conditions{
+    /* color: red; */
+    font-size: 1.33rem;
+    text-decoration: none;
+    color: rgb(233, 44, 44);
+}
+.second-head-bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100vw;
+    height: auto;
+    z-index: 6;
+    position: absolute;
+    top:8.1rem;
+}
+#login-forgot-buttons{
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    width: auto;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1rem;
+}
+#reset{
+    width:23rem;
+}
+.form_levelwise{
+    position: absolute;
+    height: 50vh;
+    width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+    top: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.question-column{
+    z-index:5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+@media screen and (max-width: 998px) {
+    html{
+        font-size: 55%;
+    }
+}
+@media screen and (max-width: 768px) {
+    html{
+        font-size: 45%;
+    }
+}

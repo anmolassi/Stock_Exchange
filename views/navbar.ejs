@@ -1,0 +1,18 @@
+<header id="layout-header">
+    <div class="mini-logo">
+            <a href='/' id="titlee">
+                MOCK EXCHANGE
+            </a>
+    </div>
+    <div class="auth-links">
+            <% if (locals.user){ %>
+                <a href="" class="profile-name"><%= user.first_name %></a>
+        
+                <a href="/logout" class="neon-btn-nav">Sign Out</a>
+            <% }else{ %>
+                <a href="/login" class="neon-btn-nav">Log In</a>
+            
+                <a href="/register" class="neon-btn-nav">Register</a>
+            <% } %>
+    </div>
+</header>

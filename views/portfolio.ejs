@@ -1,0 +1,160 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><%= locals.title%></title>
+        <link rel="stylesheet" href="/css/custom.css">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+        <script src="/js/cdn.js"></script>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+        </style>
+    </head>
+<body style="background-color: rgb(233, 233, 233);">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Mock Exchange</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/ordersPending">OrdersPending</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/ordersExecuted">OrdersExecuted</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/portfolio">Portfolio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/addmoney">AddFunds</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="card mt-4">
+        <div class="card-header">
+          Funds Summary
+        </div>
+        <div class="card-body">
+          <p>Value invested in portfolio: <%=parseFloat(portfolio_value).toFixed(2)%></p>
+          <p>Current value of portfolio: <%=parseFloat(curr_portfolio_value).toFixed(2)%></p>
+          <p>Balance: <%=parseFloat(user.fund).toFixed(2)%></p>
+        </div>
+      </div>
+    <div id="main-container">
+        <table style="width:100%;text-align: center;">
+            <tr>
+              <th>Share Symbol</th>
+              <th>Share Identifier</th>
+              <th>Quantity</th>
+              <th>Total investment value</th>
+              <th>Total investment current value</th>
+              <th></th>
+            </tr>
+            <% for (let i=0;i<ordersList.length;i++) {%>
+                <%if(lossIndicator[i]==0) {%>
+                    <tr style="color:rgb(207, 36, 24)">
+                        <td><%=ordersList[i].symbol%></td>
+                        <td><%=ordersList[i].identifier%></td>
+                        <td><%=ordersList[i].quantity%></td>
+                        <td><%= parseFloat(ordersList[i].costPerUnit * ordersList[i].quantity).toFixed(2) %></td>
+                        <td><%= parseFloat(curr_cost[i] * ordersList[i].quantity).toFixed(2) %></td>
+                        <td><button class="amendBtn" currentCost="<%=curr_cost[i]%>" costPerUnit="<%=ordersList[i].costPerUnit%>" idd="<%=ordersList[i]._id%>" symbol="<%=ordersList[i].symbol%>" identifier="<%=ordersList[i].identifier%>" quantity="<%=ordersList[i].quantity%>" totalCost="<%=ordersList[i].totalCost%>">Sell qty</button></td>
+                      </tr>
+                <%}%>
+                <%if(lossIndicator[i]==1) {%>
+                    <tr style="color:rgb(64, 207, 24)">
+                        <td><%=ordersList[i].symbol%></td>
+                        <td><%=ordersList[i].identifier%></td>
+                        <td><%=ordersList[i].quantity%></td>
+                        <td><%= parseFloat(ordersList[i].costPerUnit * ordersList[i].quantity).toFixed(2) %></td>
+                        <td><%= parseFloat(curr_cost[i] * ordersList[i].quantity).toFixed(2) %></td>
+                        <td><button class="amendBtn" currentCost="<%=curr_cost[i]%>" costPerUnit="<%=ordersList[i].costPerUnit%>" idd="<%=ordersList[i]._id%>" symbol="<%=ordersList[i].symbol%>" identifier="<%=ordersList[i].identifier%>"  quantity="<%=ordersList[i].quantity%>" totalCost="<%=ordersList[i].totalCost%>">Sell qty</button></td>
+                      </tr>
+                <%}%>
+                <%if(lossIndicator[i]==2) {%>
+                    <tr style="color:black">
+                        <td><%=ordersList[i].symbol%></td>
+                        <td><%=ordersList[i].identifier%></td>
+                        <td><%=ordersList[i].quantity%></td>
+                        <td><%= parseFloat(ordersList[i].costPerUnit * ordersList[i].quantity).toFixed(2) %></td>
+                        <td><%= parseFloat(curr_cost[i] * ordersList[i].quantity).toFixed(2) %></td>
+                        <td><button class="amendBtn" currentCost="<%=curr_cost[i]%>" costPerUnit="<%=ordersList[i].costPerUnit%>" idd="<%=ordersList[i]._id%>" symbol="<%=ordersList[i].symbol%>" identifier="<%=ordersList[i].identifier%>" quantity="<%=ordersList[i].quantity%>" totalCost="<%=ordersList[i].totalCost%>">Sell qty</button></td>
+                      </tr>
+                <%}%>
+            <% } %>
+          </table>
+    </div>
+    <div id="quote-box-container">
+        <div id="quote-box">
+            <form action="/sellorder" method="post" id="purchase-form">
+                <h2>Make New Requirement</h2>
+                <div>
+                    <span class="quote-parameters">Symbol: </span>
+                    <input type="text" name="symbol" id="quote-symbol" value="" readonly>
+                </div>
+                <div>
+                    <span class="quote-parameters">Purchase Cost/Unit: </span>
+                    <input type="number" name="quote_cost_unit" id="quote-cost-unit" value="" readonly>
+                </div>
+                <div>
+                    <span class="quote-parameters">Selling Cost/Unit: </span>
+                    <input type="number" name="quote_sell_cost_unit" id="quote-sell-cost-unit" value="" readonly>
+                </div>
+                <div>
+                    <span class="quote-parameters">Total Brokrage: </span>
+                    <input type="number" name="quote_total_brokrage" id="quote-total-brokrage" value="0.5" readonly>
+                </div>
+                <div>
+                    <span class="quote-parameters">Sell Cost Before Fees: </span>
+                    <input type="number" name="quote_total_cost_before" id="quote-total-cost-before" value="" readonly>
+                </div>
+                <div>
+                    <span class="quote-parameters">Net Sell Cost: </span>
+                    <input type="number" name="quote_total_cost" id="quote-total-cost" value="" readonly>
+                </div>
+                <div>
+                    <span class="quote-parameters">Earning: </span>
+                    <input type="number" name="earning" id="earning" value="" readonly>
+                </div>
+                <div>
+                    <span class="quote-parameters">Total Quantity: </span>
+                    <input type="number" min="1" max="" name="number_of_stocks" id="number-of-stocks">
+                </div>
+                <input type="hidden" name="identifier" id="quote-identifier" readonly>
+                <input type="hidden" name="order_id" id="quote-order-id" value="" readonly>
+                <div>
+                    <button type="submit">Confirm</button>
+                    <button id="cancel-btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="/js/index.js"></script>
+    <script src="/js/sell-order.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- <script src="/js/stock-manager-search.js"></script> -->
+</body>
+</html>

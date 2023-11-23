@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include ('head_Tag');%>
+    <link rel="stylesheet" href="/css/custom.css">
+<body>
+    <header id="layout-header" style="z-index:50">
+        <div class="mini-logo">
+                <a href='/'>
+                    MOCK EXCHANGE
+                </a>
+        </div>
+        <div>
+            <a href="/portfolio" >Portfolio</a>
+        </div>
+        <div>
+            <a href="/ordersPending" >ordersPending</a>
+        </div>
+        <div class="auth-links">
+                <% if (locals.user){ %>
+                    <a href="" ><%= user.first_name %></a>
+            
+                    <a href="/logout" >Sign Out</a>
+                <% }else{ %>
+                    <a href="/login" style="margin-right: 15px;">Log In</a>
+                
+                    <a href="/register" >Register</a>
+                <% } %>
+        </div>
+    <div class="levels" style="z-index:5">
+        <% switch (action) { 
+            case 'checkMail' : %>
+                <h3 class="action_msg">please check verfication email in your inbox/spam folder.</h3>
+                <% break; 
+            case 'verifyYourself' : %>
+                <h3 class="action_msg">not an verified account, please check verfication email in your inbox/spamfolder.</h3>
+                <% break;
+            case 'invalidKey' : %> 
+                <h3 class="action_msg">Invalid key or check for typos in the link</h3>
+                <% break; 
+            case 'wrongLink' : %> 
+                <h3 class="action_msg">Something went wrong.</h3>
+                <% break;
+            case 'nosuchuser' : %> 
+                <h3 class="action_msg">No such user.</h3>
+                <% break; 
+            case 'nofunds' : %> 
+            <h3 class="action_msg">Insufficient Funds</h3>
+            <% break; 
+            case 'notPermitted' : %> 
+            <h3 class="action_msg">Not Permitted Location.</h3>
+            <br>
+            <br>
+            <a href="https://anmol-assi-ip-address-finder.azurewebsites.net/" class="btn-nav" style="width:40%">What is my IP?</a>
+            <% break; 
+        } %>
+    </div>
+    <!-- <script src="/js/index.js"></script> -->
+    <script src="js/forgotPassword.js"></script>
+</body>
+</html>

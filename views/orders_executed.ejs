@@ -1,0 +1,193 @@
+<!-- <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><%= locals.title%></title>
+        <link rel="stylesheet" href="/css/custom.css">
+        <script src="/js/cdn.js"></script>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+        </style>
+    </head>
+<body>
+    <header id="layout-header">
+        <div class="mini-logo">
+                <a href='/' id="titlee">
+                    MOCK EXCHANGE
+                </a>
+        </div>
+        <div>
+            <a href="/portfolio" class="neon-btn-nav">Portfolio</a>
+        </div>
+        <div>
+            <a href="/ordersPending" class="neon-btn-nav">ordersPending</a>
+        </div>
+        <div class="auth-links">
+                <% if (locals.user){ %>
+                    <a href="" class="profile-name"><%= user.first_name %></a>
+            
+                    <a href="/logout" class="neon-btn-nav">Sign Out</a>
+                <% }else{ %>
+                    <a href="/login" class="neon-btn-nav">Log In</a>
+                
+                    <a href="/register" class="neon-btn-nav">Register</a>
+                <% } %>
+        </div>
+    </header>
+    <div id="main-container">
+        <table style="width:100%;text-align: center;">
+            <tr>
+              <th>Share Symbol</th>
+              <th>Quantity</th>
+              <th>Cost/Unit</th>
+              <th>Sell/Unit</th>
+              <th>earning</th>
+              <th>Operation</th>
+            </tr>
+            <% for (let i=0;i<ordersList.length;i++) {%>
+                <tr>
+                  <td><%=ordersList[i].symbol%></td>
+                  <td><%=ordersList[i].quantity%></td>
+                  <td><%=parseFloat(ordersList[i].costPerUnit).toFixed(2)%></td>
+                  <td><%=ordersList[i].sellPerUnit%></td>
+                  <td><%=ordersList[i].earning%></td>
+                  <td><%=ordersList[i].type%></td>
+                </tr>
+            <% } %>
+          </table>
+    </div>
+    <script src="/js/index.js"></script>
+</body>
+</html> -->
+
+
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Dashboard - Mock Exchange</title>
+    
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/custom.css">
+    <script src="/js/cdn.js"></script>
+    <style>
+        label{
+            color:white;
+        }
+    </style>
+  </head>
+  <body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">Mock Exchange</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/ordersPending">OrdersPending</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/ordersExecuted">OrdersExecuted</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/portfolio">Portfolio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/addmoney">AddFunds</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    
+    <div class="container mt-5 full-screen">
+      
+      <div class="card mt-4">
+        <div class="card-header">
+          Orders History
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Share Symbol</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Cost/Unit</th>
+                <th scope="col">Sell/Unit</th>
+                <th scope="col">Earning</th>
+                <th scope="col">Operation</th>
+              </tr>
+            </thead>
+            <tbody id="main-container">
+              <% for (let i=ordersList.length-1;i>=0;i--) {%>
+                <%if(Number(ordersList[i].earning) < 0) {%>
+                    <tr class="stock-info-box" style="color:rgb(199, 38, 38);">
+                        <td><%=ordersList[i].symbol%></td>
+                        <td><%=ordersList[i].quantity%></td>
+                        <td><%=parseFloat(ordersList[i].costPerUnit).toFixed(2)%></td>
+                        <td><%=ordersList[i].sellPerUnit%></td>
+                        <td><%=ordersList[i].earning%></td>
+                        <td><%=ordersList[i].type%></td>
+                    </tr>
+                  <% } else if(Number(ordersList[i].earning) > 0) {%>
+                    <tr class="stock-info-box" style="color:rgb(45, 194, 37)">
+                      <td><%=ordersList[i].symbol%></td>
+                      <td><%=ordersList[i].quantity%></td>
+                      <td><%=parseFloat(ordersList[i].costPerUnit).toFixed(2)%></td>
+                      <td><%=ordersList[i].sellPerUnit%></td>
+                      <td><%=ordersList[i].earning%></td>
+                      <td><%=ordersList[i].type%></td>
+                    </tr>
+                  <%} else {%>
+                  <tr class="stock-info-box" style="color:rgb(0, 0, 0);">
+                    <td><%=ordersList[i].symbol%></td>
+                    <td><%=ordersList[i].quantity%></td>
+                    <td><%=parseFloat(ordersList[i].costPerUnit).toFixed(2)%></td>
+                    <td><%=ordersList[i].sellPerUnit%></td>
+                    <td><%=ordersList[i].earning%></td>
+                    <td><%=ordersList[i].type%></td>
+                  </tr>
+                <%}%>
+                
+            <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

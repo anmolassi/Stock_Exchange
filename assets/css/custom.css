@@ -1,0 +1,116 @@
+*,*::before,*::after{
+    margin: 0;
+    box-sizing: border-box;
+}
+:root{
+    --clr-neon: hsl(317 100% 54%);
+    --clr-neon-gr: hsl(125, 100%, 54%);
+    --clr-neon-rd: hsl(0, 100%, 54%);
+    --clr-neon-gy: hsl(0, 0%, 68%);
+    --clr-neon-yl: hsl(65, 100%, 54%);
+    --clr-neon-bl:rgb(75, 202, 244);
+    --clr-bg: hsl(323 21% 16%);
+}
+/* html,body{
+    height: 100%;
+} */
+#layout-header{
+    position: sticky;
+    top:0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0.7em;
+    background-color:rgb(202, 202, 202);
+    color:black;
+    font-size: 2.3rem;
+}
+.neon-btn-nav{
+    color: black;
+}
+#main-container{
+    background-color: white;
+}
+.info{
+    width:33%;
+    text-align: center;
+}
+#quote-box,#quote-box-2{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    min-width: 330px;
+    padding: 1em 1.5em;
+    font-size: 1.3rem;
+    flex-wrap: wrap;
+    height: auto;
+    background-color: white;
+    color: black;
+    width:45%;
+}
+#quote-box-container, #quote-box-container-2{
+    z-index: 15;
+    position: fixed;
+    top:0;
+    background-color: rgba(0,0,0,0.8);
+    width:100vw;
+    height:100vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+#registerMe, .btn-nav{
+    background-color: #4bcaff;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    width: 100%; /* Make the button full width */
+}
+.btn-nav:hover, #registerMe:hover{
+    background: var(--clr-neon);
+}
+#delete-user-yes-no, #add-ip-form{
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    z-index: 20;
+    position: absolute;
+    top:0;
+    left: 0;
+}
+#delete-form{
+    background: white; 
+    font-size: 1.5vw;
+    font-family: fantasy;
+    width: 35vw;
+    height:20vh;
+    display: flex;
+    justify-content: space-around;
+    border-radius: 2rem;
+    align-items: center;
+    flex-direction: column;
+}
+#delete-user-yes{
+    font-size: 1.6vw;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--clr-neon-rd);
+}
+#delete-user-no{
+    font-size: 1.6vw;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--clr-neon-gr);
+}
+.action_msg{
+    font-size:3.5rem;
+}

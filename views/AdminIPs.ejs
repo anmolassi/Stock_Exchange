@@ -1,0 +1,93 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><%= locals.title%></title>
+        <link rel="stylesheet" href="/css/custom.css">
+        <script src="/js/cdn.js"></script>
+        <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            th,td{
+                font-size:1.4rem;
+                padding: 0.5em;
+            }
+        </style>
+    </head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Mock Exchange</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/admin">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/locations"><%=locals.myip%></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/ordersPending">ExecuteOrders</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    <div class="levels-admin" style="background-color: rgb(216, 216, 216);z-index:5;width:100vw;display: flex;justify-content: center;align-items: center;flex-direction: column;gap:2rem;padding: 2em;">
+        <table style="width:20vw;text-align: center;">
+            <tr>
+                <th>IP-ADDRESS</th>
+                <th></th>
+            </tr>
+            <% for (let i=0;i<ips.length;i++) {%>
+                <tr>
+                    <td style="overflow: hidden;"><%=ips[i].ipAddress%></td>
+                    <td ipaddress="<%=ips[i].ipAddress%>" class="ip-address-delete-link"style="color: rgb(233, 19, 19)">Delete</td>
+                </tr>
+            <% } %>
+            </table>
+            <a href="" id="add-ip-form-btn" style="font-size: 2rem;" >Add IP</a>
+    </div>
+    <div id="add-ip-form">
+        <div id="delete-form">
+            <div>Add IP Address</div>
+            <input type="text" placeholder="write IP address" id="write_IP_Address" style="font-size: 1.6rem; padding: 0.2rem;">
+            <div style="width:30vw;display: flex;justify-content: space-around;">
+                <a href="/admin/addlocation" id="add-location-confirm" style="text-decoration: none;cursor: pointer;color: rgb(0, 209, 0);">Add IP</a>
+                <a href="" id="add-location-cancel" style="text-decoration: none;cursor: pointer;color: rgb(209, 0, 0);">Cancel</a>
+            </div>
+        </div>
+          </div>
+    </div>
+    <div id="delete-user-yes-no">
+        <div id="delete-form">
+          <div>Are You sure to delete this location <span id="ipaddress-display"></span>?</div>
+          <div style="width:30vw;display: flex;justify-content: space-around;"><a href="/admin/deleteLocation/" id="delete-user-yes" style="text-decoration: none;cursor: pointer;color: rgb(0, 209, 0);">Yes</a><a href="" id="delete-user-no" style="text-decoration: none;cursor: pointer;color: rgb(209, 0, 0);">No</a></div>
+        </div>
+      </div>
+    <!-- <script src="/js/index.js"></script> -->
+    <script src="/js/adminlocation.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

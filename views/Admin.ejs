@@ -1,0 +1,99 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Dashboard - Mock Exchange</title>
+    
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/custom.css">
+    <script src="/js/cdn.js"></script>
+    <style>
+        label{
+            color:white;
+        }
+    </style>
+  </head>
+  <body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">Mock Exchange</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/admin">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/locations"><%=locals.myip%></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/ordersPending">ExecuteOrders</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/logout">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    
+    <div class="container mt-5 full-screen">
+      
+      <div class="card mt-4">
+        <div class="card-header">
+            Brokrage Earned:<%=parseFloat(admin.fund).toFixed(2)%>
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Unique ID</th>
+                <th scope="col">Client Name</th>
+                <th scope="col">Client Email</th>
+                <th scope="col">Client Funds</th>
+                <th scope="col">Client Funds Booked</th>
+                <th scope="col">Verification</th>
+              </tr>
+            </thead>
+            <tbody id="main-container">
+                <% for (let i=0;i<users.length;i++) {%>
+                    <%if(users[i].email!='admin@gmail.com') {%>
+                        <tr class="stock-info-box" style="color:rgb(0, 0, 0);">
+                        <td><%= users[i]._id%></td>
+                        <td><%= users[i].first_name%> <%= users[i].last_name%></td>
+                        <td><%= users[i].email%></td>
+                        <td><%= parseFloat(users[i].fund).toFixed(2) %></td>
+                        <td><%= parseFloat(users[i].pending_orders_fund_book).toFixed(2) %></td>
+                        <td><%= users[i].verified%></td>
+                    </tr>
+                    <%}%>
+                <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </body>
+</html>

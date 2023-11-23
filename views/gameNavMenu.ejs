@@ -1,0 +1,269 @@
+<!-- <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><%= locals.title%></title>
+        <link rel="stylesheet" href="/css/custom.css">
+        <script src="/js/cdn.js"></script>
+    </head>
+<body>
+    <header id="layout-header">
+        <div class="mini-logo">
+                <a href='/' id="titlee">
+                    PUZZLE GAME
+                </a>
+        </div>
+        <div>
+            <input type="text" value="" id="search-stock">
+        </div>
+        <div>
+            <a href="/ordersPending" class="neon-btn-nav">ordersPending</a>
+        </div>
+        <div>
+            <a href="/addmoney" class="neon-btn-nav">Add Funds</a>
+        </div>
+        <div>
+            <a href="/portfolio" class="neon-btn-nav">Portfolio</a>
+        </div>
+        <div class="auth-links">
+                <% if (locals.user){ %>
+                    <a href="" class="profile-name"><%= user.first_name %></a>
+            
+                    <a href="/logout" class="neon-btn-nav">Sign Out</a>
+                <% }else{ %>
+                    <a href="/login" class="neon-btn-nav">Log In</a>
+                
+                    <a href="/register" class="neon-btn-nav">Register</a>
+                <% } %>
+        </div>
+    </header>
+    <div id="main-container">
+        <% for (let i=0;i<stockBazaar.length;i++) {%>
+            <%if(stockBazaar[i].lossIndicator==0) {%>
+                <div class="stock-info-box" symbol="<%=stockBazaar[i].symbol%>" identifier="<%=stockBazaar[i].identifier%>" lastPrice="<%=stockBazaar[i].lastPrice%>" style="color:rgb(199, 38, 38);">
+                    <div class="info"><%=stockBazaar[i].symbol%></div>
+                    <div class="info"><%=stockBazaar[i].open%></div>
+                    <div class="info"><%=stockBazaar[i].lastPrice%></div>
+                </div>
+            <%}%>
+            <%if(stockBazaar[i].lossIndicator==1) {%>
+                <div class="stock-info-box" symbol="<%=stockBazaar[i].symbol%>" identifier="<%=stockBazaar[i].identifier%>" lastPrice="<%=stockBazaar[i].lastPrice%>" style="color:rgb(45, 194, 37)">
+                    <div class="info"><%=stockBazaar[i].symbol%></div>
+                    <div class="info"><%=stockBazaar[i].open%></div>
+                    <div class="info"><%=stockBazaar[i].lastPrice%></div>
+                </div>
+            <%}%>
+            <%if(stockBazaar[i].lossIndicator==2) {%>
+                <div class="stock-info-box" symbol="<%=stockBazaar[i].symbol%>" identifier="<%=stockBazaar[i].identifier%>" lastPrice="<%=stockBazaar[i].lastPrice%>" style="color:rgb(0, 0, 0);">
+                    <div class="info"><%=stockBazaar[i].symbol%></div>
+                    <div class="info"><%=stockBazaar[i].open%></div>
+                    <div class="info"><%=stockBazaar[i].lastPrice%></div>
+                </div>
+            <%}%>
+        <% } %>
+    </div>
+    <div id="quote-box-container">
+        <span id="quote-box">
+            <form action="/placeorder" method="post" id="purchase-form">
+                <div>
+                    <span class="quote-parameters">Symbol: </span>
+                    <input type="text" name="symbol" id="quote-symbol" value="" readonly>
+                </div>
+                <div>
+                    <span class="quote-parameters">Cost/Unit: </span>
+                    <input type="number" name="quote_cost_unit" id="quote-cost-unit" value="" readonly>
+                </div>
+                <div>
+                    <span class="quote-parameters">Total Brokrage: </span>
+                    <input type="number" name="quote_total_brokrage" id="quote-total-brokrage" value="0.5" readonly>
+                </div>
+                <div>
+                    <span class="quote-parameters">Cost Before Fees: </span>
+                    <input type="number" name="quote_total_cost_before" id="quote-total-cost-before" value="" readonly>
+                </div>
+                <div>
+                    <span class="quote-parameters">Total Cost: </span>
+                    <input type="number" name="quote_total_cost" id="quote-total-cost" value="" readonly>
+                </div>
+                <div>
+                    <span class="quote-parameters">Total Quantity: </span>
+                    <input type="number" min="1" id="number-of-stocks" value="1">
+                </div>
+                <input type="hidden" name="identifier" id="quote-identifier" readonly>
+                <div>
+                    <button type="submit">Confirm</button>
+                    <button id="cancel-btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="/js/index.js"></script>
+    <script src="/js/stock-manager-search.js"></script>
+</body>
+</html> -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Dashboard - Mock Exchange</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/custom.css">
+    <script src="/js/cdn.js"></script>
+    <style>
+        label{
+            color:white;
+        }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">Mock Exchange</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <input type="text" value="" class="form-control input-field" id="search-stock" placeholder="Search Stock" required/>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/ordersPending">OrdersPending</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/ordersExecuted">OrdersExecuted</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/portfolio">Portfolio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/addmoney">AddFunds</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5 full-screen">
+      <h2>Hi! <%= user.first_name %></h2>
+
+      <!-- Portfolio Summary -->
+      <div class="card mt-4">
+        <div class="card-header">
+          Funds Summary
+        </div>
+        <div class="card-body">
+          <p>Total Funds Available: ₹<%= parseFloat(user.fund).toFixed(2) %></p>
+          <p>Available Funds For Investment: ₹<%= parseFloat(user.fund - user.pending_orders_fund_book).toFixed(2) %></p>
+          <p>Funds Booked For Pending Orders: ₹<%= parseFloat(user.pending_orders_fund_book).toFixed(2) %></p>
+        </div>
+      </div>
+
+      <!-- Recent Executed Orders -->
+      <div class="card mt-4">
+        <div class="card-header">
+          Recent Market Details
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Symbol</th>
+                <th scope="col">Identifier</th>
+                <th scope="col">Open Price</th>
+                <th scope="col">Last Price</th>
+              </tr>
+            </thead>
+            <tbody id="main-container">
+              <% for (let i=0;i<stockBazaar.length;i++) {%>
+                <%if(stockBazaar[i].lossIndicator==0) {%>
+                  <tr class="stock-info-box" symbol="<%=stockBazaar[i].symbol%>" identifier="<%=stockBazaar[i].identifier%>" lastPrice="<%=stockBazaar[i].lastPrice%>" style="color:rgb(199, 38, 38);">
+                    <td><%=stockBazaar[i].symbol%></td>
+                    <td><%=stockBazaar[i].identifier%></td>
+                    <td><%=stockBazaar[i].open%></td>
+                    <td><%=stockBazaar[i].lastPrice%></td>
+                  </tr>
+                <%}%>
+                <%if(stockBazaar[i].lossIndicator==1) {%>
+                  <tr class="stock-info-box" symbol="<%=stockBazaar[i].symbol%>" identifier="<%=stockBazaar[i].identifier%>" lastPrice="<%=stockBazaar[i].lastPrice%>" style="color:rgb(45, 194, 37)">
+                    <td><%=stockBazaar[i].symbol%></td>
+                    <td><%=stockBazaar[i].identifier%></td>
+                    <td><%=stockBazaar[i].open%></td>
+                    <td><%=stockBazaar[i].lastPrice%></td>
+                  </tr>
+                <%}%>
+                <%if(stockBazaar[i].lossIndicator==2) {%>
+                  <tr class="stock-info-box" symbol="<%=stockBazaar[i].symbol%>" identifier="<%=stockBazaar[i].identifier%>" lastPrice="<%=stockBazaar[i].lastPrice%>" style="color:rgb(0, 0, 0);">
+                    <td><%=stockBazaar[i].symbol%></td>
+                    <td><%=stockBazaar[i].identifier%></td>
+                    <td><%=stockBazaar[i].open%></td>
+                    <td><%=stockBazaar[i].lastPrice%></td>
+                  </tr>
+                <%}%>
+            <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div id="quote-box-container">
+        <form action="/placeorder" method="post">
+            <div class="form-group">
+              <label for="quote-symbol">Symbol:</label>
+              <input type="text" class="form-control" name="symbol" id="quote-symbol" value="" readonly/>
+            </div>
+            <div class="form-group">
+                <label for="quote-cost-unit">Cost/Unit:</label>
+                <input class="form-control" type="number" name="quote_cost_unit" id="quote-cost-unit" value="" readonly/>
+              </div>
+              <div class="form-group">
+                <label for="quote-total-brokrage">Total Brokrage:</label>
+                <input class="form-control" type="number" name="quote_total_brokrage" id="quote-total-brokrage" value="0.5" readonly/>
+              </div>
+              <div class="form-group">
+                <label for="quote-total-cost-before">Cost Before Fees:</label>
+                <input class="form-control" type="number" name="quote_total_cost_before" id="quote-total-cost-before" value="" readonly/>
+              </div>
+              <div class="form-group">
+                <label for="quote-total-cost">Total Cost:</label>
+                <input class="form-control" type="number" name="quote_total_cost" id="quote-total-cost" value="" readonly/>
+              </div>
+              <div class="form-group">
+                <label for="number-of-stocks">Total Quantity:</label>
+                <input class="form-control" type="number" min="1" id="number-of-stocks" value="1"/>
+              </div>
+              <input type="hidden" name="identifier" id="quote-identifier" readonly>
+              <div>
+                <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+                <button id="cancel-btn" class="btn btn-primary btn-block">Cancel</button>
+            </div>
+          </form>
+    </div>
+  <script src="/js/stock-manager-search.js"></script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </body>
+</html>
