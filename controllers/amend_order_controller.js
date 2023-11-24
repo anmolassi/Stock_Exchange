@@ -7,13 +7,13 @@ module.exports.amendOrder = async function (req, res) {
   console.log("hi");
   const token = req.cookies.jwt;
   if (token) {
-    console.log(token);
     const id=await jwt.decode(token,{complete:true}).payload._id;
     let userr = await user.findOne({_id:id,"tokens.token":token});
     if(userr){
         let orderPlace=await ordersReceived.findOne({_id:req.body.order_id});
+        console.log(req.body);
         console.log(orderPlace);
-        if(orderPlace && 0<=req.body.number_of_stocks){
+        if(orderPlace && 0<=Number(req.body.number_of_stocks) && parseFloat(Number(req.body.quote_total_cost)).toFixed(2)<=Number(userr.fund)-Number(userr.pending_orders_fund_book)){
             let inititalNumberOfStocks=orderPlace.totalBrokrage/0.5;
             //let costPerUnit=(orderPlace.totalCost-orderPlace.totalBrokrage)/inititalNumberOfStocks;
             let fundRelease=(inititalNumberOfStocks-req.body.number_of_stocks)*orderPlace.costPerUnit;
@@ -36,7 +36,8 @@ module.exports.amendOrder = async function (req, res) {
             res.setHeader("Expires", "0"); // Proxies.
             res.redirect('/ordersPending');
         }else{
-            res.render("oversmart");
+            res.locals.action="nofunds";
+            res.render("action");
         }
     }else{
         res.locals.title = "login";

@@ -17,7 +17,7 @@ module.exports.placeOrder = async function (req, res) {
     const identifier=req.body.identifier;
     console.log("Identifier:     ",identifier);
     let cost=Number(userr.pending_orders_fund_book) + Number(totalCostPaid);
-    if(cost <= userr.fund){
+    if(cost <= userr.fund-userr.pending_orders_fund_book){
         const orderPlace= await ordersReceived.create({
             user: id,
             costPerUnit:req.body.quote_cost_unit,
@@ -48,8 +48,8 @@ module.exports.placeOrder = async function (req, res) {
     }
   } else {
     res.locals.title = "login";
-    res.setHeader("Cross-Origin-Embedder-Policy","credentialess")
-    res.setHeader("Content-Security-Policy", "default-src 'self' https://www.w3.org/2000/svg ; style-src 'self' https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css 'unsafe-inline'; frame-src 'self'  ;img-src 'self'  data: ;connect-src 'self'  ;script-src 'self' https://code.jquery.com/jquery-3.3.1.slim.min.js https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js 'unsafe-inline'");
+    //res.setHeader("Cross-Origin-Embedder-Policy","credentialess")
+    //res.setHeader("Content-Security-Policy", "default-src 'self' https://www.w3.org/2000/svg ; style-src 'self' https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css 'unsafe-inline'; frame-src 'self'  ;img-src 'self'  data: ;connect-src 'self'  ;script-src 'self' https://code.jquery.com/jquery-3.3.1.slim.min.js https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js 'unsafe-inline'");
     res.render("login");
   }
 }};

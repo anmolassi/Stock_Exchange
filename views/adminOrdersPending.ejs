@@ -6,6 +6,10 @@
         <title><%= locals.title%></title>
         <link rel="stylesheet" href="/css/custom.css">
         <script src="/js/cdn.js"></script>
+        <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
         <style>
             table, th, td {
                 border: 1px solid black;
@@ -14,20 +18,36 @@
         </style>
     </head>
 <body>
-    <header id="layout-header">
-        <div class="mini-logo">
-                <a href='/' id="titlee">
-                    MOCK EXCHANGE   
-                </a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Mock Exchange</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/admin">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/locations"><%=locals.myip%></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/ordersPending">ExecuteOrders</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/logout">Logout</a>
+            </li>
+          </ul>
         </div>
-        <div>
-            <a href="/admin/ordersPending" class="neon-btn-nav">ordersPending</a>
-        </div>
-        <div class="auth-links">
-            <a href="/admin/locations" class="profile-name"><%=locals.myip%></a>
-            <a href="/admin/logout" class="neon-btn-nav">Sign Out</a>
-        </div>
-    </header>
+      </nav>
     <!-- <h2>Note: Delete buttton deletes the order with just one click, use it carefully.</h2> -->
     <div id="main-container">
         <table style="width:100%;text-align: center;">
@@ -106,6 +126,9 @@
     </div>
     <!-- <script src="/js/index.js"></script> -->
     <script src="/js/adminOrderExecution.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <!-- <script src="/js/stock-manager-search.js"></script> -->
 </body>
 </html>
